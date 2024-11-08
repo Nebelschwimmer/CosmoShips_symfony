@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SpaceShip index{% endblock %}
+
+{% block body %}
+    <h1>SpaceShips for Sale</h1>
+    <a href="{{ path('app_space_ship_new') }}">Create new</a>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Find') }}</button>
+{{ form_end(form) }}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>CrewCapacity</th>
+                <th>MaxSpeed</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for space_ship in space_ships %}
+            <tr>
+                <td>{{ space_ship.id }}</td>
+                <td>{{ space_ship.name }}</td>
+                <td>{{ space_ship.color }}</td>
+                <td>{{ space_ship.size }}</td>
+                <td>{{ space_ship.crewCapacity }}</td>
+                <td>{{ space_ship.maxSpeed }}</td>
+                <td>{{ space_ship.description ? space_ship.description : '' }}</td>
+                <td>
+                    <div class="actions_cell">
+                        <a href="{{ path('app_space_ship_show', {'id': space_ship.id}) }}">Show</a>
+                        <a href="{{ path('app_space_ship_edit', {'id': space_ship.id}) }}">Edit</a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}
